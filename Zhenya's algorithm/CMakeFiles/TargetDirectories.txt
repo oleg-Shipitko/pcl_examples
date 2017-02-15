@@ -1,4 +1,0 @@
-/home/oleg/Desktop/Shipitko Oleg/pcl_workspace/Zhenya's algorithm/CMakeFiles/PlaneDetector.dir
-/home/oleg/Desktop/Shipitko Oleg/pcl_workspace/Zhenya's algorithm/CMakeFiles/Skeleton.dir
-/home/oleg/Desktop/Shipitko Oleg/pcl_workspace/Zhenya's algorithm/CMakeFiles/TempMatching.dir
-/home/oleg/Desktop/Shipitko Oleg/pcl_workspace/Zhenya's algorithm/CMakeFiles/objFinder.dir

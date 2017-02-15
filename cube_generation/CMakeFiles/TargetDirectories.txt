@@ -1,1 +1,0 @@
-/home/oleg/Desktop/Shipitko Oleg/pcl_workspace/cube_generation/CMakeFiles/cube_detection.dir

@@ -1,2 +1,0 @@
-/usr/bin/ar cr libPlaneDetector.a  CMakeFiles/PlaneDetector.dir/PlaneDetector.cpp.o
-/usr/bin/ranlib libPlaneDetector.a

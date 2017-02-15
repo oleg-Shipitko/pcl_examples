@@ -1,1 +1,0 @@
-/home/oleg/Desktop/Shipitko Oleg/pcl_workspace/corespondance_grouping/CMakeFiles/correspondence_grouping.dir

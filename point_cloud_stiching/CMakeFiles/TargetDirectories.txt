@@ -1,1 +1,0 @@
-/home/oleg/Desktop/Shipitko Oleg/pcl_workspace/point_cloud_stiching/CMakeFiles/poin_cloud_stiching.dir

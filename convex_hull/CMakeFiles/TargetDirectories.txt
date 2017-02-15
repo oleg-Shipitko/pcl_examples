@@ -1,1 +1,0 @@
-/home/oleg/Desktop/Shipitko Oleg/pcl_workaspace/convex_hull/CMakeFiles/concave_hull_2d.dir

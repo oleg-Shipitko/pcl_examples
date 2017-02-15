@@ -1,1 +1,0 @@
-/home/oleg/Desktop/Shipitko Oleg/pcl_workspace/edge_detection/CMakeFiles/edge_detection.dir

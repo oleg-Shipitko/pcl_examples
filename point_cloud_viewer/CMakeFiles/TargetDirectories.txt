@@ -1,1 +1,0 @@
-/home/oleg/Desktop/Shipitko Oleg/pcl_workspace/point_cloud_viewer/CMakeFiles/point_cloud_viewer.dir
