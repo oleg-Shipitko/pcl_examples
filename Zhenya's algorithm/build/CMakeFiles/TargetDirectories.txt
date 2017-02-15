@@ -1,0 +1,4 @@
+/home/evgps/RoboCV/plane_seg/build/CMakeFiles/PlaneDetector.dir
+/home/evgps/RoboCV/plane_seg/build/CMakeFiles/Skeleton.dir
+/home/evgps/RoboCV/plane_seg/build/CMakeFiles/TempMatching.dir
+/home/evgps/RoboCV/plane_seg/build/CMakeFiles/objFinder.dir

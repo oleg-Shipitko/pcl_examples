@@ -1,0 +1,2 @@
+/usr/bin/ar cr libTempMatching.a  CMakeFiles/TempMatching.dir/TempMatching.cpp.o
+/usr/bin/ranlib libTempMatching.a

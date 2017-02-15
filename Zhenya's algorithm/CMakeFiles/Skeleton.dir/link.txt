@@ -1,0 +1,2 @@
+/usr/bin/ar cr libSkeleton.a  CMakeFiles/Skeleton.dir/Skeleton.cpp.o
+/usr/bin/ranlib libSkeleton.a
