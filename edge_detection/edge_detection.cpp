@@ -34,8 +34,8 @@ int main (int argc, char** argv)
 {
   std::string filename = argv[1];
   std::cout << "Reading " << filename << std::endl;
-  pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGBA>);
-  if(pcl::io::loadPCDFile<pcl::PointXYZRGBA> (filename, *cloud) == -1) // load the file
+  pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGB>);
+  if(pcl::io::loadPCDFile<pcl::PointXYZRGB> (filename, *cloud) == -1) // load the file
   {
     PCL_ERROR ("Couldn't read file");
     return -1;
@@ -43,16 +43,16 @@ int main (int argc, char** argv)
   std::cout << "points: " << cloud->points.size () <<std::endl;
 
 
-  pcl::NormalEstimation<pcl::PointXYZRGBA, pcl::Normal> ne;
+  pcl::NormalEstimation<pcl::PointXYZRGB, pcl::Normal> ne;
   ne.setInputCloud (cloud);
   // Create an empty kdtree representation, and pass it to the normal estimation object.
   // Its content will be filled inside the object, based on the given input dataset (as no other search surface is given).
-  pcl::search::KdTree<pcl::PointXYZRGBA>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZRGBA> ());
+  pcl::search::KdTree<pcl::PointXYZRGB>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZRGB> ());
   ne.setSearchMethod (tree);
   // Output datasets
   pcl::PointCloud<pcl::Normal>::Ptr cloud_normals (new pcl::PointCloud<pcl::Normal>);
   // Use all neighbors in a sphere of radius 3cm
-  ne.setRadiusSearch (0.01);
+  ne.setRadiusSearch (0.3);
   // Compute the features
   ne.compute (*cloud_normals);
 
@@ -60,20 +60,20 @@ int main (int argc, char** argv)
   pcl::PCDWriter writer;
   writer.write<pcl::Normal> ("normals_scene.pcd", *cloud_normals, false); 
 
-  pcl::OrganizedEdgeFromRGBNormals<pcl::PointXYZRGBA, pcl::Normal, pcl::Label> oed;
+  pcl::OrganizedEdgeFromRGBNormals<pcl::PointXYZRGB, pcl::Normal, pcl::Label> oed;
   oed.setInputNormals (cloud_normals);
   oed.setInputCloud (cloud);
-  oed.setDepthDisconThreshold (0.03); // 2cm
+  oed.setDepthDisconThreshold (0.03); // 3cm
   oed.setMaxSearchNeighbors (100);
   pcl::PointCloud<pcl::Label> labels;
   std::vector<pcl::PointIndices> label_indices;
   oed.compute (labels, label_indices);
 
-  pcl::PointCloud<pcl::PointXYZRGBA>::Ptr occluding_edges (new pcl::PointCloud<pcl::PointXYZRGBA>),
-        occluded_edges (new pcl::PointCloud<pcl::PointXYZRGBA>),
-        boundary_edges (new pcl::PointCloud<pcl::PointXYZRGBA>),
-        high_curvature_edges (new pcl::PointCloud<pcl::PointXYZRGBA>),
-        rgb_edges (new pcl::PointCloud<pcl::PointXYZRGBA>);
+  pcl::PointCloud<pcl::PointXYZRGB>::Ptr occluding_edges (new pcl::PointCloud<pcl::PointXYZRGB>),
+        occluded_edges (new pcl::PointCloud<pcl::PointXYZRGB>),
+        boundary_edges (new pcl::PointCloud<pcl::PointXYZRGB>),
+        high_curvature_edges (new pcl::PointCloud<pcl::PointXYZRGB>),
+        rgb_edges (new pcl::PointCloud<pcl::PointXYZRGB>);
 
   pcl::copyPointCloud (*cloud, label_indices[0].indices, *boundary_edges);
   pcl::copyPointCloud (*cloud, label_indices[1].indices, *occluding_edges);
@@ -81,10 +81,10 @@ int main (int argc, char** argv)
   pcl::copyPointCloud (*cloud, label_indices[3].indices, *high_curvature_edges);
   pcl::copyPointCloud (*cloud, label_indices[4].indices, *rgb_edges);
   
-  writer.write<pcl::PointXYZRGBA> ("occluding_edges_scene.pcd", *occluding_edges, false); 
-  writer.write<pcl::PointXYZRGBA> ("boundary_edges_scene.pcd", *boundary_edges, false); 
-  writer.write<pcl::PointXYZRGBA> ("occluded_edges_scene.pcd", *occluded_edges, false); 
-  writer.write<pcl::PointXYZRGBA> ("high_curvature_edges_scene.pcd", *high_curvature_edges, false);
-  writer.write<pcl::PointXYZRGBA> ("rgb_edges_scene.pcd", *rgb_edges, false);
+  writer.write<pcl::PointXYZRGB> ("occluding_edges_scene.pcd", *occluding_edges, false); 
+  writer.write<pcl::PointXYZRGB> ("boundary_edges_scene.pcd", *boundary_edges, false); 
+  writer.write<pcl::PointXYZRGB> ("occluded_edges_scene.pcd", *occluded_edges, false); 
+  writer.write<pcl::PointXYZRGB> ("high_curvature_edges_scene.pcd", *high_curvature_edges, false);
+  writer.write<pcl::PointXYZRGB> ("rgb_edges_scene.pcd", *rgb_edges, false);
 }
   

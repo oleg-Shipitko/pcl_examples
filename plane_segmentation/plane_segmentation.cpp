@@ -8,7 +8,6 @@
 #include <pcl/sample_consensus/model_types.h>
 #include <pcl/segmentation/sac_segmentation.h>
 #include <pcl/filters/voxel_grid.h>
-#include <pcl/filters/extract_indices.h>
 #include <boost/thread/thread.hpp>
 #include <pcl/filters/passthrough.h>
 #include <pcl/filters/extract_indices.h>
@@ -24,7 +23,7 @@ int main (int argc, char** argv)
 
   // Fill in the cloud data
   pcl::PCDReader reader;
-  reader.read ("../data/test_pcd_28.pcd", *cloud_blob);
+  reader.read ("dominant_cluster.pcd", *cloud_blob);
 
   int v1(0), v2(0), v3(0);
   boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer("3D Viewer"));
@@ -56,31 +55,6 @@ int main (int argc, char** argv)
 
   pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgb(cloud_filtered);
   viewer->addPointCloud<pcl::PointXYZRGB>(cloud_filtered, rgb, "Filtered cloud", v1);
-  
-  //  // Create the filtering object
-  // pcl::PassThrough<pcl::PointXYZRGB> pass;
-  // pass.setInputCloud (cloud_filtered);
-  // pass.setFilterFieldName ("x");
-  // pass.setFilterLimits (-100.0, 0.1);
-  // //pass.setFilterLimitsNegative (true);
-  // pass.filter (*cloud_filtered_pass);
-
-  // pcl::PassThrough<pcl::PointXYZRGB> pass;
-  // pass.setInputCloud (cloud_filtered);
-  // pass.setFilterFieldName ("y");
-  // pass.setFilterLimits (-100.0, 0.1);
-  // //pass.setFilterLimitsNegative (true);
-  // pass.filter (*cloud_filtered_pass);
-
-  //   pcl::PassThrough<pcl::PointXYZRGB> pass;
-  // pass.setInputCloud (cloud_filtered);
-  // pass.setFilterFieldName ("z");
-  // pass.setFilterLimits (-100.0, 0.1);
-  // //pass.setFilterLimitsNegative (true);
-  // pass.filter (*cloud_filtered_pass);
-
-  // pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgb_1(cloud_filtered_pass);
-  // viewer->addPointCloud<pcl::PointXYZRGB>(cloud_filtered_pass, rgb_1, "PassThrough Filtered cloud", v3);
 
   pcl::ModelCoefficients::Ptr coefficients (new pcl::ModelCoefficients ());
   pcl::PointIndices::Ptr inliers (new pcl::PointIndices ());
@@ -91,6 +65,8 @@ int main (int argc, char** argv)
   // Mandatory
   seg.setModelType (pcl::SACMODEL_PLANE);
   seg.setMethodType (pcl::SAC_RANSAC);
+  Eigen::Vector3f perpendicular_to(1, 1, 0); 
+  seg.setAxis(perpendicular_to);
   seg.setMaxIterations (1000);
   seg.setDistanceThreshold (0.01);
 

@@ -73,6 +73,12 @@ main(int, char** argv)
   const int n_scales_per_octave = 4;
   const float min_contrast = 0.001f;
   
+  const float leaf = 0.002f;
+  pcl::VoxelGrid<pcl::PointXYZ> grid;
+  grid.setLeafSize (leaf, leaf, leaf);
+  grid.setInputCloud (cloud_xyz);
+  grid.filter (*cloud_xyz);
+  
   // Estimate the normals of the cloud_xyz
   pcl::NormalEstimation<pcl::PointXYZ, pcl::PointNormal> ne;
   pcl::PointCloud<pcl::PointNormal>::Ptr cloud_normals (new pcl::PointCloud<pcl::PointNormal>);
